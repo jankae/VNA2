@@ -60,6 +60,14 @@ public:
             bool enabled;
             int port;
         } SCPI;
+        struct {
+            // warning temperature
+            int warnLimit;
+            int warnAction;
+            // critical temperature (future improvement)
+            // int criticalLimit
+            // int criticalAction
+        } HWTemp;   // related to embedded device temperatures
     } General;
 
     bool TCPoverride; // in case of manual port specification via command line
@@ -72,7 +80,7 @@ private:
         QString name;
         QVariant def;
     };
-    const std::array<SettingDescription, 27> descr = {{
+    const std::array<SettingDescription, 29> descr = {{
         {&Startup.ConnectToFirstDevice, "Startup.ConnectToFirstDevice", true},
         {&Startup.RememberSweepSettings, "Startup.RememberSweepSettings", false},
         {&Startup.DefaultSweep.start, "Startup.DefaultSweep.start", 1000000.0},
@@ -100,6 +108,8 @@ private:
         {&General.graphColors.divisions, "General.graphColors.divisions", QColor(Qt::gray)},
         {&General.SCPI.enabled, "General.SCPI.enabled", true},
         {&General.SCPI.port, "General.SCPI.port", 19542},
+        {&General.HWTemp.warnLimit, "General.HWTemperature.warnLimit", 70},
+        {&General.HWTemp.warnAction, "General.HWTemperature.warnAction", 0},
     }};
 };
 
